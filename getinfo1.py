@@ -11,6 +11,9 @@ def main():
         return GetInfo()
 
 def GetInfo():
+    global ifvalid
+
+    ifvalid=""
     
     course=request.form.get('txtcourse')
     
@@ -23,8 +26,11 @@ def GetInfo():
     return DisplayInfo()
 
 def CheckInfo():
+    
     if (course == "" or tname="" or room=="")
-        print("")
+        ifvalid="Your input it's invalid"
+        
+        GetInfo()
 
 def DisplayInfo():
     return render_template('output.html',)
