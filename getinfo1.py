@@ -11,14 +11,20 @@ def main():
         return GetInfo()
 
 def GetInfo():
-    global 
     
     course=request.form.get('txtcourse')
+    
     tname=request.form.get('txttname')
     
     room=request.form.get('txtroom')
 
+    CheckInfo()
+
     return DisplayInfo()
+
+def CheckInfo():
+    if (course == "" or tname="" or room=="")
+        print("")
 
 def DisplayInfo():
     return render_template('output.html',)
