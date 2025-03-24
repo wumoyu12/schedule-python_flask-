@@ -5,12 +5,11 @@
 	</head>
 	<body>
 		<h1>Input the following information</h1>
+
+		<label id="lblperiodinfo">periodinfo{{periodinfo}}</label>
+		
 		<form method="post">
 			<table id="tbinfo">
-				
-				<th>Period Information</th>
-				
-
 				<tr>
 					<td><label id="lblcourse">Course Name:</label>
 					<td><input type="text" name="txtcourse">
@@ -20,12 +19,32 @@
 					<td><label id="tname">Teacher Name:</label>
 					<td><input type="text" name="txttname">
 				</tr>
+
 				<tr>
 					<td><label id="lblroom">Room Number:</label>
 					<td><input type="text" name="txtroom">
 				</tr>
-
+				
 			</table>
+	
+			<label id="lblmsg">If you don't have class during this period please fillout the info below<label>
+
+			<table id="tbmoreinfo">
+				<tr>
+					<td><label id="lblwhat">what are you going to do:</label>
+					<td><input type="text" name="txtwhat">
+				</tr>
+
+				<tr>
+					<td><label id="lblwhere">where are you going to be:</label>
+					<td><input type="text" name="txtwhere">
+				</tr>
+
+				<tr>
+					<td><label id="lblwho">Which teacher you are stay with:</label>
+					<td><input type="text" name="txtwho">
+				</tr>
+
 			<button type="button" id="btnsubmit">Submit</button><br>
 			<label id="lblifvalid">{{ifvalid}}</label>
 		</form>
