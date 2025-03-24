@@ -6,5 +6,10 @@ table, th, td
 
 body
 {
-	color:red;
+	background-color:lightblue;
+}
+
+input
+{
+	background-color:lightblue
 }
