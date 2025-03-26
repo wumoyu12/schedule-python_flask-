@@ -1,52 +1,48 @@
 <html>
 	<head>
-		<title>Schedule</title>
+		<title>Schedule Input</title>
 		<link rel="stylesheet" href="/static/input.css">
 	</head>
 	<body>
-		<h1>Input the following information</h1>
-
-		<label id="lblperiodinfo">periodinfo{{periodinfo}}</label>
-		
+		<h1>Input Your Schedule Information</h1>
 		<form method="post">
+            {% for period in range(1, 9) %}
+            <h3>Period {{ period }}</h3>
 			<table id="tbinfo">
 				<tr>
-					<td><label id="lblcourse">Course Name:</label>
-					<td><input type="text" name="txtcourse">
+					<td><label>Course Name:</label></td>
+					<td><input type="text" name="txtcourse{{ period }}"></td>
 				</tr>
-
 				<tr>
-					<td><label id="tname">Teacher Name:</label>
-					<td><input type="text" name="txttname">
+					<td><label>Teacher Name:</label></td>
+					<td><input type="text" name="txttname{{ period }}"></td>
 				</tr>
-
 				<tr>
-					<td><label id="lblroom">Room Number:</label>
-					<td><input type="text" name="txtroom">
+					<td><label>Room Number:</label></td>
+					<td><input type="text" name="txtroom{{ period }}"></td>
 				</tr>
-				
 			</table>
-	
-			<label id="lblmsg">If you don't have class during this period please fillout the info below<label>
-
+			
+			<label class="lblmsg">If you don't have class during this period please fill out the info below</label>
+			
 			<table id="tbmoreinfo">
 				<tr>
-					<td><label id="lblwhat">what are you going to do:</label>
-					<td><input type="text" name="txtwhat">
+					<td><label>What are you going to do:</label></td>
+					<td><input type="text" name="txtwhat{{ period }}"></td>
 				</tr>
-
 				<tr>
-					<td><label id="lblwhere">where are you going to be:</label>
-					<td><input type="text" name="txtwhere">
+					<td><label>Where are you going to be:</label></td>
+					<td><input type="text" name="txtwhere{{ period }}"></td>
 				</tr>
-
 				<tr>
-					<td><label id="lblwho">Which teacher you are stay with:</label>
-					<td><input type="text" name="txtwho">
+					<td><label>Which teacher you are staying with:</label></td>
+					<td><input type="text" name="txtwho{{ period }}"></td>
 				</tr>
-
-			<button type="button" id="btnsubmit">Submit</button><br>
-			<label id="lblifvalid">{{ifvalid}}</label>
+			</table>
+			<button id="btnsubmit">Submit</button>
+            <hr>
+            {% endfor %}
+			
 		</form>
 	</body>
 </html>
