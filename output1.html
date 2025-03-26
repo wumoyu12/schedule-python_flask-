@@ -1,21 +1,23 @@
 <html>
 	<head>
 		<title>Schedule Output</title>
-		<link rel="stylesheet" href="/static/output.css">
+		<link rel="stylesheet" href="/static/custtable.css">
 	</head>
-
 	<body>
-		<form method="post">
-			<table id="tbinfo">
-				<tr>
-					<label id="lblhsname">HSName{{hsname}}</label>
-				</tr>
-				
-				<tr>
-					<label id="lblhsname">SName{{sname}}</labrl>
-				</tr>
-				
-			</table>
-		</form>
+		<h1>Your Class Schedule</h1>
+		<table id="schedule">
+			<tr>
+				{% for header in headings %}
+				<th>{{ header }}</th>
+				{% endfor %}
+			</tr>
+			{% for row in data %}
+			<tr>
+				{% for cell in row %}
+				<td>{{ cell }}</td>
+				{% endfor %}
+			</tr>
+			{% endfor %}
+		</table>
 	</body>
 </html>
