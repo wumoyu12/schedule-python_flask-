@@ -2,60 +2,59 @@ from flask import Flask,render_template, request, redirect
 import os.path
 from os import path
 
-global whichfilename
-whichfilename = "schedule.txt"
-
+global whichfilename;
+whichfilename = "LoginAccounts.doc";
 app = Flask(__name__)
 
-@app.route('/')
+@app.route("/")
 def main():
-    return render_template('personinfo.html')
+    return render_template("GetInformation.html");
 
-@app.route("/info", methods=['POST'])
+@app.route("/info",methods=["POST"])
 def GetInfo():
-    
-    CreateCheckFile()
-    global pdnum, course, teacher, room
-    for i in range(1, 9):
-        
-        pdnum="Period " + str(i)
-        course = request.form.get("course" + str(i), "N/A")
-        teacher = request.form.get("teacher" + str(i), "N/A")
-        room = request.form.get("room" + str(i), "N/A")
+    global username, userpasswd;
 
-        CreateCheckFile()
+    username = request.form.get("txtusername");
+    userpasswd = request.form.get("txtpassword");
 
-    RetrieveInfo()
-        
+    if(username == "" or userpasswd == ""):
+        return render_template("GetInformation.html");
+    else:
+        CreateCheckFile();
+        RetrieveInfo();
+        return render_template("output.html", username = fileusername, password = fileuserpwd);
+
 def CreateCheckFile():
-    fileDir = os.path.dirname(os.path.realpath("__file__"))
-    fileexist = bool(path.exists(whichfilename))
+    fileDir = os.path.dirname(os.path.realpath("__file__"));
+    fileexist = bool(path.exists(whichfilename));
 
     if (fileexist == False):
-        status = "new"
+        status = "new";
     else:
-        status = "edit"
+        status = "edit";
 
-    WriteToFile(status)
-    
+    WriteToFile(status);
+
 def WriteToFile(whichstatus):
     if (whichstatus == "new"):
-        infofile = open(whichfilename,"x")
-        infofile.close()
-        infofile = open(whichfilename,"w")
+        logacctfile = open(whichfilename,"x");
+        logacctfile.close();
+        logacctfile = open(whichfilename,"w");
     else:
-        infofile = open(whichfilename,"a")
+        logacctfile = open(whichfilename,"a");
 
-    infofile.write(pdnum + "," + course + "," + teacher + "," + room + ",")
-    infofile.close()
-    
+    logacctfile.write(str(username) + ", " + str(userpasswd));
+    logacctfile.close();
+
 def RetrieveInfo():
-    schedule = []
-    infofile = open(whichfilename,"r")
-    items = infofile.read().split(",");
-    schedule.append(items)
+    global fileusername, fileuserpwd;
     
-    return render_template('output.html', schedule=schedule)
+    logacctfile = open(whichfilename,"r");
+    infologin = logacctfile.read().split(",");
+    logacctfile.close();
 
-if __name__ == '__main__':
-    app.run()
+    fileusername = infologin[0].strip();
+    fileuserpwd = infologin[1].strip();
+    
+if __name__ == "__main__":
+    app.run();
