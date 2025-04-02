@@ -1,1 +1,48 @@
 
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Weekly Schedule</title>
+        <style>
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                margin: 20px 0;
+            }
+            th, td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: center;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+            .day-header {
+                background-color: #e6e6e6;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Weekly Schedule</h1>
+        <table>
+            <tr>
+                <th>Period</th>
+                <th class="day-header">Monday</th>
+                <th class="day-header">Tuesday</th>
+                <th class="day-header">Wednesday</th>
+                <th class="day-header">Thursday</th>
+                <th class="day-header">Friday</th>
+            </tr>
+            {% for i in range(schedule|length) %}
+            <tr>
+                <td>{{ schedule[i][0] }}</td>
+                <td>{{ schedule[i][1] }}</td>
+                <td>{{ schedule[i][1] }}</td>
+                <td>{{ schedule[i][1] }}</td>
+                <td>{{ schedule[i][1] }}</td>
+                <td>{{ schedule[i][1] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
