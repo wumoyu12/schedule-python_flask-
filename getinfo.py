@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, request, redirect
 import os.path
 from os import path
@@ -71,10 +70,9 @@ def RetrieveInfo():
             if i+3 < len(items):
                 schedule.append(items[i:i+4])
     else:
-        # 文件不存在时返回空列表
         return render_template('output.html', schedule=[])
     
     return render_template('output.html', schedule=schedule)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
