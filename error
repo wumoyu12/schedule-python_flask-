@@ -21,11 +21,11 @@ def GetInfo():
         teacher = request.form.get("teacher" + str(i), "")
         room = request.form.get("room" + str(i), "")
         
-        # 检查输入
+        
         if course == "" or teacher == "" or room == "":
             return render_template('personinfo.html', valid="You must enter all fields. Enter 'n/a' if not applicable")
         
-        # 处理n/a情况
+        
         if course == "n/a":
             course = "No Class"
         if teacher == "n/a":
@@ -33,7 +33,7 @@ def GetInfo():
         if room == "n/a":
             room = "No Room"
         
-        # 写入文件
+        
         WriteToFile(pdnum, course, teacher, room)
     
     return RetrieveInfo()
@@ -74,4 +74,4 @@ def RetrieveInfo():
     return render_template('output.html', schedule=schedule)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
