@@ -11,11 +11,10 @@ def main():
 
 @app.route("/info", methods=['POST'])
 def GetInfo():
+    global result
+    CreateCheckFile()
     
-    if path.exists(whichfilename):
-        open(whichfilename, "w").close()
-    
-    status = "edit" if path.exists(whichfilename) else "new"
+    result = ""
     
     for i in range(1, 9):
         pdnum = "Period " + str(i)
@@ -23,8 +22,10 @@ def GetInfo():
         teacher = request.form.get("teacher" + str(i), "")
         room = request.form.get("room" + str(i), "")
         
+        
         if course == "" or teacher == "" or room == "":
-            return render_template('personinfo.html', valid="Don't leave BLANK")
+            return render_template('personinfo.html', valid="Please don't leave any BLANK")
+        
         
         if course == "n/a":
             course = "No Class"
@@ -33,12 +34,22 @@ def GetInfo():
         if room == "n/a":
             room = "No Room"
         
-        WriteToFile(pdnum, course, teacher, room, status)
-        status = "edit"
+        
+        WriteToFile(pdnum, course, teacher, room)
     
     return RetrieveInfo()
 
-def WriteToFile(pdnum, course, teacher, room, status):
+def CreateCheckFile():
+    global status
+    fileDir = os.path.dirname(os.path.realpath("__file__"))
+    fileexist = bool(path.exists(whichfilename))
+
+    if fileexist == False:
+        status = "new"
+    else:
+        status = "edit"
+
+def WriteToFile(pdnum, course, teacher, room):
     if status == "new":
         infofile = open(whichfilename, "w")
     else:
@@ -53,11 +64,12 @@ def RetrieveInfo():
         infofile = open(whichfilename, "r")
         content = infofile.read()
         infofile.close()
-        
         items = content.split(",")
-        for i in range(0, len(items), 4):
+        for i in range(0, len(items)-1, 4):
             if i+3 < len(items):
                 schedule.append(items[i:i+4])
+    else:
+        return render_template('output.html', schedule=[])
     
     return render_template('output.html', schedule=schedule)
 
