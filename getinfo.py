@@ -23,7 +23,7 @@ def GetInfo():
         
         
         if course == "" or teacher == "" or room == "":
-            return render_template('personinfo.html', valid="You must enter all fields. Enter 'n/a' if not applicable")
+            return render_template('personinfo.html', valid="Please don't leave any BLANK")
         
         
         if course == "n/a":
@@ -39,13 +39,14 @@ def GetInfo():
     return RetrieveInfo()
 
 def CreateCheckFile():
+    global status
     fileDir = os.path.dirname(os.path.realpath("__file__"))
     fileexist = bool(path.exists(whichfilename))
 
     if fileexist == False:
-        return "new"
+        status = "new"
     else:
-        return "edit"
+        status = "edit"
 
 def WriteToFile(pdnum, course, teacher, room):
     if status == "new":
