@@ -1,1 +1,31 @@
 
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Schedule</title>
+    </head>
+    <body>
+        <h1>Enter Schedule Information</h1>
+        <form method="post" action="/info">
+            <table>
+                <tr>
+                    <th>Period:</th>
+                    <th>Course Name:</th>
+                    <th>Teacher:</th>
+                    <th>Room Number:</th>
+                </tr>
+
+                {% for i in range(1, 9) %}
+                <tr>
+                    <td>Period {{ i }}</td>
+                    <td><input type="text" name="course{{ i }}"></td>
+                    <td><input type="text" name="teacher{{ i }}"></td>
+                    <td><input type="text" name="room{{ i }}"></td>
+                </tr>
+                {% endfor %}
+            </table>
+            <label id="lblvalid">{{valid}}</label><br>
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+</html>
