@@ -11,33 +11,32 @@ def main():
 
 @app.route("/info", methods=['POST'])
 def GetInfo():
-    global status
+    global status, result
     status = CreateCheckFile()
+    result = ""
+    
     for i in range(1, 9):
-        global pdnum, course, teacher, room
         pdnum = "Period " + str(i)
-        course = request.form.get("course" + str(i))
-        teacher = request.form.get("teacher" + str(i))
-        room = request.form.get("room" + str(i))
+        course = request.form.get("course" + str(i), "")
+        teacher = request.form.get("teacher" + str(i), "")
+        room = request.form.get("room" + str(i), "")
         
-        result = CheckInput()
-        if result != "":
-            return result
+        
+        if course == "" or teacher == "" or room == "":
+            return render_template('personinfo.html', valid="You must enter all fields. Enter 'n/a' if not applicable")
+        
+        
+        if course == "n/a":
+            course = "No Class"
+        if teacher == "n/a":
+            teacher = "No Teacher"
+        if room == "n/a":
+            room = "No Room"
+        
+        
+        WriteToFile(pdnum, course, teacher, room)
     
     return RetrieveInfo()
-
-def CheckInput():
-    if course == "" or teacher == "" or room == "":
-        return render_template('personinfo.html', valid="You must enter all fields. Enter 'n/a' if not applicable")
-    elif course == "n/a":
-        course = "No Class"
-    elif teacher == "n/a":
-        teacher = "No Teacher"
-    elif room == "n/a":
-        room = "No Room"
-    
-    WriteToFile()
-    return ""
 
 def CreateCheckFile():
     fileDir = os.path.dirname(os.path.realpath("__file__"))
@@ -48,7 +47,7 @@ def CreateCheckFile():
     else:
         return "edit"
 
-def WriteToFile():
+def WriteToFile(pdnum, course, teacher, room):
     if status == "new":
         infofile = open(whichfilename, "x")
         infofile.close()
@@ -56,7 +55,7 @@ def WriteToFile():
     else:
         infofile = open(whichfilename, "a")
 
-    infofile.write(str(pdnum) + "," + str(course) + "," + str(teacher) + "," + str(room) + ",")
+    infofile.write(pdnum + "," + course + "," + teacher + "," + room + ",")
     infofile.close()
 
 def RetrieveInfo():
