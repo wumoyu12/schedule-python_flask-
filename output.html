@@ -1,26 +1,33 @@
-
-<!DOCTYPE html>
 <html>
-    <head>
-        <title>Schedule</title>
-    </head>
-    <body>
-        <h1>Schedule</h1>
-        <table border="1">
-            <tr>
-                <th>Period:</th>
-                <th>Course Name:</th>
-                <th>Teacher:</th>
-                <th>Room Number:</th>
-            </tr>
-            {% for i in schedule %}
-            <tr>
-                <td>{{ i[0] }}</td>
-                <td>{{ i[1] }}</td>
-                <td>{{ i[2] }}</td>
-                <td>{{ i[3] }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    </body>
+<head>
+	<title>Schedule</title>
+	<link rel="stylesheet" href="\static\output.css">
+</head>
+	<body>
+	<h1>Schedule</h1>
+	<table>
+		<tr>
+			<th>Period</th>
+			<th>Monday</th>
+			<th>Tuesday</th>
+			<th>Wednesday</th>
+			<th>Thursday</th>
+			<th>Friday</th>
+		</tr>
+	{% for i in range(8) %}
+	<tr>
+		<td class="period-col">Period {{ i+1 }}</td>
+		{% for day in range(5) %}
+		<td class="day-col">
+			{% if schedule[i] %}
+			{{ schedule[i][1] }}<br>
+			<small>{{ schedule[i][2] }}</small><br>
+			<small>Room: {{ schedule[i][3] }}</small>
+			{% endif %}
+		</td>
+		{% endfor %}
+		</tr>
+		{% endfor %}
+	</table>
+	</body>
 </html>
