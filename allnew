@@ -1,1 +1,57 @@
 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>School Schedule</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        .period-col {
+            width: 10%;
+            background-color: #f8f8f8;
+        }
+        .day-col {
+            width: 18%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Weekly School Schedule</h1>
+    <table>
+        <tr>
+            <th>Period</th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+        </tr>
+        {% for i in range(8) %}
+        <tr>
+            <td class="period-col">Period {{ i+1 }}</td>
+            {% for day in range(5) %}
+            <td class="day-col">
+                {% if schedule[i] %}
+                    {{ schedule[i][1] }}<br>
+                    <small>{{ schedule[i][2] }}</small><br>
+                    <small>Room: {{ schedule[i][3] }}</small>
+                {% endif %}
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
